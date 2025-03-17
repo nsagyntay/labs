@@ -24,7 +24,7 @@ def main():
         
         for event in pygame.event.get():
             
-            # определяем, если X был нажат, или использован Ctrl+W или Alt+F4
+            
             if event.type == pygame.QUIT:
                 return
             if event.type == pygame.KEYDOWN:
@@ -35,15 +35,14 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     return
             
-                # выбор цвета
+                
                 if event.key == pygame.K_r:
                     mode = 'red'
                 elif event.key == pygame.K_g:
                     mode = 'green'
                 elif event.key == pygame.K_b:
                     mode = 'blue'
-                # выбор режима рисования:
-                # Rежим линии (L), прямоугольника (Q), круга (C) и ластика (E)
+                
                 elif event.key == pygame.K_l:
                     drawing_mode = 'line'
                 elif event.key == pygame.K_q:
@@ -54,23 +53,19 @@ def main():
                     drawing_mode = 'eraser'
             
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:  # левая кнопка мыши (или тачпад)
+                if event.button == 1:  
                     if drawing_mode == 'line':
-                        # В режиме линии, как и раньше, левая кнопка увеличивает радиус
                         radius = min(200, radius + 1)
-                        # И добавляем начальную точку в список
                         points = points + [event.pos]
                     else:
-                        # Для других режимов начинаем рисование и запоминаем стартовую позицию
                         drawing = True
                         start_pos = event.pos
                         current_pos = event.pos
-                elif event.button == 3:  # правая кнопка мыши уменьшает радиус
+                elif event.button == 3:
                     radius = max(1, radius - 1)
             
             if event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 1:
-                    # Завершаем рисование для режимов фигур
                     drawing = False
                     start_pos = None
                     current_pos = None
@@ -78,7 +73,6 @@ def main():
             if event.type == pygame.MOUSEMOTION:
                 position = event.pos
                 if drawing_mode == 'line':
-                    # в режиме линии добавляем точки в список (как было)
                     points = points + [position]
                     points = points[-256:]
                 else:
